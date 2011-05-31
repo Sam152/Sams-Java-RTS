@@ -1,4 +1,5 @@
 package SamsRTS;
+
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.*;
@@ -6,13 +7,14 @@ import java.io.*;
 
 public class Sprite {
 
-	private BufferedImage image;
-	private Point position;
-	private double selectionRadius;
+	private BufferedImage	image;
+	private Point			position;
+	private boolean			staticDisplay;
+	private boolean			selected;
 
 	Sprite(){
-		position = new Point();
-		selectionRadius = 2;
+		position =			new Point();
+		staticDisplay =		false;
 	}
 
 	Sprite(String filename, Point inPosition){
@@ -20,7 +22,18 @@ public class Sprite {
 			image = ImageIO.read(new File("img/" + filename));
 		} catch (IOException ex) {}
 
-		position = (inPosition);
+		position = new Point(inPosition);
+
+		staticDisplay = false;
+	}
+
+	Sprite(String filename, Point inPosition,boolean inStaticDisplay){
+		try{
+			image = ImageIO.read(new File("img/" + filename));
+		} catch (IOException ex) {}
+
+		position = new Point(inPosition);
+		staticDisplay = inStaticDisplay;
 	}
 
 	Sprite(Sprite inImage){
@@ -44,9 +57,12 @@ public class Sprite {
 		return (position.y + (image.getHeight() / 2));
 	}
 
-	public void draw(Graphics g, boolean selected,Point camera){
-		//System.out.println(cameraPosition.toString());
-		g.drawImage(image,position.x - camera.x,position.y - camera.y,null);
+	public void draw(Graphics g,Point camera){
+
+		if(!staticDisplay)
+			g.drawImage(image,position.x - camera.x,position.y - camera.y,null);
+		else
+			g.drawImage(image,position.x,position.y,null);
 
 		if(selected){
 			g.setColor(Color.GREEN);
@@ -64,11 +80,23 @@ public class Sprite {
 
 	public boolean collision(Point inPoint,int inRadius){
 		int collisionRadius = inRadius + imageRadius();
-		System.out.println(collisionRadius);
 
 		int distanceX = (int)Math.pow(inPoint.x - getX(),2);
 		int distanceY = (int)Math.pow(inPoint.y - getY(),2);
 
 		return	Math.sqrt(distanceX + distanceY) < collisionRadius;
 	}
+
+	public void check(){
+		selected = true;
+	}
+
+	public void uncheck(){
+		selected = false;
+	}
+
+	public boolean isSelected(){
+		return selected;
+	}
+
 }
