@@ -49,12 +49,20 @@ public class Sprite {
 		return position;
 	}
 
+	public Point getCenterPosition(){
+		return new Point(getX(),getY());
+	}
+
 	public int getX(){
 		return (position.x + (image.getWidth() / 2));
 	}
 
 	public int getY(){
 		return (position.y + (image.getHeight() / 2));
+	}
+
+	public void setPosition(Point inPoint){
+		position = inPoint;
 	}
 
 	public void draw(Graphics g,Point camera){

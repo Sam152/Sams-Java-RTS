@@ -1,9 +1,2 @@
 This a little project I have created with NetBeans IDE to help me learn Java. 
 It should open with Netbeans as a project and can be run from there.
-
-To do:
-	Spawn/create units
-	Move units
-	Make units selectable based on type
-	Make units selected based on rectangle
-	

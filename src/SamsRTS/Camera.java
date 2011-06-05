@@ -8,7 +8,7 @@ public class Camera {
 	int cameraSpeed;
 
 	Camera(){
-		cameraSpeed = 5;
+		cameraSpeed = 10;
 		cameraPosition = new Point(0,0);
 	}
 

@@ -6,6 +6,7 @@ public class Frog extends Unit {
 
 	Frog(){
 		super("frog.png",new Point(0,0));
+		cost = 60;
 	}
 
 	Frog(Point position){
